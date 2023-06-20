@@ -3,11 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <title>HTML5 Canvas</title>
-  <link rel="icon" href="https://fav.farm/🔥" />
+  <link rel="icon" href="https://fav.farm/🎨" />
 </head>
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+ // Get the canvas element from the HTML document
+  const canvas = document.getElementById('draw');
+
+  // Get the 2D drawing context for the canvas
+  const ctx = canvas.getContext('2d');
+
+  // Set the width and height of the canvas to match the window size
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // Set some properties for the drawing context
+  ctx.strokeStyle = '#bada55';  // Set the stroke color to a greenish color
+  ctx.lineJoin = 'round';  // Set the line join style to round
+  ctx.lineCap = 'round';  // Set the line cap style to round
+
+  // Set some variables for tracking the drawing state
+  let isDrawing = false;  // Set the initial drawing state to false
+  let lastX = 0;  // Set the initial last X coordinate to 0
+  let lastY = 0;  // Set the initial last Y coordinate to 0
+
+  // Define a function to handle mousemove events
+  function draw(event) {
+    // If the mouse is not currently being held down, stop the function from running
+    if (!isDrawing) return;
+    // Otherwise, log the event object to the console
+    console.log(event);
+  }
+
+  // Add an event listener for mousemove events that calls the draw() function
+  canvas.addEventListener('mousemove', draw);
+
+  // Add an event listener for mousedown events that sets isDrawing to true
+  canvas.addEventListener('mousedown', () => isDrawing = true);
+
+  // Add an event listener for mouseup events that sets isDrawing to false
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+
+  // Add an event listener for mouseout events that sets isDrawing to false
+  canvas.addEventListener('mouseout', () => isDrawing = false);
+
 </script>
 
 <style>
