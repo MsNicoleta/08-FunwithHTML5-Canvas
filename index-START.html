@@ -22,17 +22,26 @@
   ctx.strokeStyle = '#bada55';  // Set the stroke color to a greenish color
   ctx.lineJoin = 'round';  // Set the line join style to round
   ctx.lineCap = 'round';  // Set the line cap style to round
+  ctx.lineWidth = 30;
 
   // Set some variables for tracking the drawing state
   let isDrawing = false;  // Set the initial drawing state to false
   let lastX = 0;  // Set the initial last X coordinate to 0
   let lastY = 0;  // Set the initial last Y coordinate to 0
+  let hue = 0; // Set the initial hue
 
   // Define a function to handle mousemove events
   function draw(event) {
     // If the mouse is not currently being held down, stop the function from running
     if (!isDrawing) return;
     // Otherwise, log the event object to the console
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; // Set the stroke color to a light blue color
+    ctx.beginPath();  // Start a new path
+    ctx.moveTo(lastX, lastY);  // Move to the last X and last Y coordinates
+    ctx.lineTo(event.offsetX, event.offsetY); //  Move to the new X and Y coordinates
+    ctx.stroke();  // Draw the path
+    [lastX, lastY] = [ event.offsetX, event.offsetY ]; // Set the last X & Y coordinate to the new X & Y coordinates
+    hue++;  // Increment the hue by 1 each time the mouse is moved 
     console.log(event);
   }
 
@@ -40,14 +49,18 @@
   canvas.addEventListener('mousemove', draw);
 
   // Add an event listener for mousedown events that sets isDrawing to true
-  canvas.addEventListener('mousedown', () => isDrawing = true);
+  canvas.addEventListener('mousedown', (event) => {
+  isDrawing = true;
+      [lastX, lastY] = [event.offsetX, event.offsetY]; // Set the last X & Y coordinate to the new X & Y coordinates
+
+});
 
   // Add an event listener for mouseup events that sets isDrawing to false
   canvas.addEventListener('mouseup', () => isDrawing = false);
 
   // Add an event listener for mouseout events that sets isDrawing to false
   canvas.addEventListener('mouseout', () => isDrawing = false);
-
+//
 </script>
 
 <style>
